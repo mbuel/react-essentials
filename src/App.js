@@ -1,58 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css';
-import restaurant from './restaurant.jpg'
-
-function Header(props) {
-  return (
-    <header>
-      <h1>{props.name} Cacino</h1>
-    </header>
-  )
-}
-
-function Main(props) {
-  return (
-    <section>
-      <p>We serve {props.adjective} delicacies daily.</p>
-      <img 
-        src={restaurant} 
-        height={200} 
-        alt="outside a restaurant"/>
-      <ul style={{textAlign: "left"}}>
-        {props.dishes.map((dish) => (
-          // eslint-disable-next-line react/jsx-key
-          <li key={dish.id}>{dish.title}</li>
-        ))}
-      </ul>
-    </section>
-  )
-}
-
-function Footer(props) {
-  return (
-    <footer>
-      <p>Copyright {props.year}</p>
-    </footer>
-  )
-}
-
-const dishes = [
-  "Macaroni and Cheese",
-  "Eggs",
-  "Challah",
-  "French Toast"
-]
-
-const dishObjects = dishes.map((dish, i) => ({id: i, title: dish}));
 
 function App() {
+  const [emotion, setEmotion] = useState("happy");
+  const [secondary, setSecondary] = useState("tired");
+
+  useEffect(() => {
+    console.log('It\'s emotion is ', {emotion});
+  }, [emotion])
+
+  useEffect(() => {
+    console.log('It\'s emotion is ', {secondary});
+  }, [secondary])
+
   return (
-    <div className="App">
-      <Header name="Nezmah"/>
-      <Main adjective="amazing" dishes={dishObjects}/>
-      <Footer year={new Date().getFullYear()} />
-    </div>
-  );
+    <>
+      <h1>Hello! My current emotion is {emotion} and I am {secondary}</h1>
+      <button onClick={() => setEmotion("frustrated")}>Frustrate</button>
+      <button onClick={() => setEmotion("happy")}>Happy</button>
+      <button onClick={() => setEmotion("enthusiastic")}>Enthused</button>
+      <button onClick={() => setSecondary("crabby")}>Crabby!</button>
+
+    </>
+  ) 
+
 }
 
 export default App;
